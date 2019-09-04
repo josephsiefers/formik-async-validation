@@ -1,11 +1,11 @@
 version: '3.4'
 
 services:
-  react-app:
-    container_name: react-app
+  formik-async-validation:
+    container_name: formik-async-validation
     command: "./start.sh"
     build: ./
-    image: joineryhousing/react-app
+    image: joineryhousing/formik-async-validation
     volumes:
       - ./:/home/node
       - type: bind
