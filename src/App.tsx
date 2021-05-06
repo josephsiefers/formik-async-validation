@@ -11,14 +11,14 @@ const mocks = [
     request: {
       query: GET_USER_QUERY,
       variables: {
-        email: 'joseph.siefers@gmail.com',
+        email: 'j@j.co',
       },
     },
     result: {
       data: {
-        user: { 
+        user: {
           name: "Joseph Siefers",
-          email: 'joseph.siefers@gmail.com' 
+          email: 'j@j.co'
         },
       },
     },
@@ -26,7 +26,7 @@ const mocks = [
 ];
 
 
-const App: React.FC = () => {  
+const App: React.FC = () => {
   return (
     <>
       <MockedProvider mocks={mocks} addTypename={false}>

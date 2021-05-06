@@ -8,17 +8,19 @@ const MyField: React.FC<FieldProps<string>> = ({field: {value, onChange, onBlur}
 
   const result = useUser(value);
 
-  const {loading, data} = result;
+  const {loading, error, data} = result;
 
   useEffect(() => {
-    if (!loading && data && data.user) {
-      setFieldError('email', 'This email already exists!')
+    if (!loading  && !error && data && data.user) {
+      console.log("Setting field error");
+      setFieldError('email', 'This email already exists!');
     }
-  }, [loading, data, setFieldError, value]);
+  }, [loading, error, data, setFieldError]);
+
 
   return (
     <>
-      <input type="text" value={value} onChange={onChange('email')} onBlur={onBlur('email')} />
+      <input id="email" type="text" value={value} onChange={onChange} onBlur={onBlur} />
     </>
   )
 };

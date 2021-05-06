@@ -20,12 +20,16 @@ interface userData {
 }
 
 const UseEmail = (email: string) => {
-  const { loading, error, data } = useQuery<{user: userData | undefined}, userVars>(
+
+
+  const { loading, error, data, refetch } = useQuery<{user: userData | undefined}, userVars>(
     GET_USER_QUERY,
     {variables: {email: email}}
   );
 
-  return { loading, error, data };
+  //console.log(`In UseEmail: ${email} ${error} ${data && data.user && data.user.email}`)
+
+  return { loading, error, data, refetch: refetch };
 }
 
 export default UseEmail;

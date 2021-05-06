@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Formik, Form, FormikErrors, Field, ErrorMessage } from 'formik';
+import useUser from './hooks/useUser';
 
-import MyField from './MyField';
+import { Formik, Form, FormikErrors, Field, ErrorMessage } from 'formik';
 
 
 interface FormValues {
@@ -10,6 +10,8 @@ interface FormValues {
 }
 
 const MyForm: React.FC = () => {
+
+  const { refetch } = useUser('');
 
   //const sleep = (ms: number) => new Promise<string>((resolve) => setTimeout(resolve, ms));
 
@@ -20,28 +22,26 @@ const MyForm: React.FC = () => {
   const validateForm = (values: FormValues) => {
     let errors: FormikErrors<FormValues> = {};
 
-    console.log("In validate form");
-
-    return errors;
+    return refetch({ email: values.email }).then((result) => {
+      if (result && result.data && result.data.user) {
+        errors.email = "That email is already in use";
+        throw errors;
+      }
+    })
   }
 
   return (
     <>
       <Formik<FormValues>
-        initialValues={{email: ''}}
-        validate={validateForm}
+        initialValues={{ email: '' }}
         onSubmit={handleSubmit}
+        validate={validateForm}
       >
-        {({errors}) => {
-          return (
-            <Form>
-              <p>{errors.email}</p>
-              <Field name='email' component={MyField}/>
-              <ErrorMessage name="email"/>
-              <button type="submit">Submit</button>
-            </Form>
-          )}
-        }
+        <Form>
+          <Field name='email' />
+          <ErrorMessage name="email" />
+          <button type="submit">Submit</button>
+        </Form>
       </Formik>
     </>
   );

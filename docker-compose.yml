@@ -1,11 +1,11 @@
-version: '3.4'
+version: "3.4"
 
 services:
   formik-async-validation:
     container_name: formik-async-validation
     command: "./start.sh"
     build: ./
-    image: joineryhousing/formik-async-validation
+    image: josephsiefers/formik-async-validation
     volumes:
       - ./:/home/node
       - type: bind
